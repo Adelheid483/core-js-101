@@ -359,8 +359,8 @@ function getItemsSum(arr) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  return arr.filter((item) => Boolean(item) === false).length;
 }
 
 /**
@@ -377,8 +377,8 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurences(arr, item) {
+  return arr.filter((elem) => elem === item).length;
 }
 
 /**
@@ -392,8 +392,8 @@ function findAllOccurences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.join(',');
 }
 
 
@@ -423,8 +423,19 @@ function toStringList(/* arr */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    const countryA = a.country.toLowerCase();
+    const countryB = b.country.toLowerCase();
+    const cityA = a.city.toLowerCase();
+    const cityB = b.city.toLowerCase();
+
+    if (countryA < countryB) return -1;
+    if (countryA > countryB) return 1;
+    if (cityA < cityB) return -1;
+    if (cityA > cityB) return 1;
+    return 0;
+  });
 }
 
 /**
@@ -462,8 +473,8 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return Array(end - start + 1).fill().map((_, index) => start + index);
 }
 
 /**
@@ -477,8 +488,8 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return [...new Set(arr)];
 }
 
 /**
@@ -569,8 +580,21 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  let swapped = [];
+  if (arr.length % 2 === 0) {
+    const separator = arr.length / 2 - 1;
+    const tail = arr.slice(0, separator + 1);
+    const head = arr.slice(separator + 1);
+    swapped = [...head, ...tail];
+  }
+  if (arr.length % 2 !== 0) {
+    const separator = Math.trunc(arr.length / 2);
+    const tail = arr.slice(0, separator);
+    const head = arr.slice(separator + 1);
+    swapped = [...head, arr[separator], ...tail];
+  }
+  return swapped;
 }
 
 
